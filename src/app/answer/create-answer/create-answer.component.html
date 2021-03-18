@@ -1,1 +1,38 @@
-<p>create-answer works!</p>
+<!-- <p>create-answer works!</p> -->
+<form
+  class="form-horizontal"
+  autocomplete="off"
+  #createQuestionForm="ngForm"
+  (ngSubmit)="save()"
+>
+  <abp-modal-header
+    [title]="'Post Answer' | localize"
+    (onCloseClick)="bsModalRef.hide()"
+  ></abp-modal-header>
+  <div class="modal-body">
+    <tabset>
+      <tab [heading]="'Answer' | localize" class="pt-3 px-2">
+        <div class="form-group row mb-0">
+          <label class="col-md-3 col-form-label" for="description">
+            {{ "Answer" | localize }}
+          </label>
+          <div class="col-md-9">
+            <textarea
+              type="text"
+              class="form-control"
+              name="description"
+              id="description"
+              [(ngModel)]="answer.answerText"
+            >
+            </textarea>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+  <abp-modal-footer
+    [cancelDisabled]="saving"
+    [saveDisabled]="!createQuestionForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"
+  ></abp-modal-footer>
+</form>

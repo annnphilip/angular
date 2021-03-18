@@ -17,6 +17,8 @@ import {
 } from '@shared/service-proxies/service-proxies';
 import { CreateQuestionComponent } from './create-question/create-question.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
+import { AbpSessionService } from 'abp-ng2-module';
+import { AppComponentBase } from '@shared/app-component-base';
 
 class PagedQuestionsRequestDto extends PagedRequestDto {
   keyword: string;
@@ -35,19 +37,22 @@ export class QuestionComponent extends PagedListingComponentBase<QuestionOutputD
   advancedFiltersVisible = false;
   loading:boolean;
   router: any;
-  // datalen:number=0;
+  userId:number;
 
   constructor(
     injector: Injector,
     private _questService: QuestionServiceProxy,
     private _modalService: BsModalService,
-    private _router: Router
+    private _router: Router,
+    private _sessionService:AbpSessionService
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-
+    console.log(this._sessionService.userId
+    );
+    this.userId=this._sessionService.userId;
     this.getAllQuestion("",0,10);
   }
 
@@ -79,6 +84,7 @@ export class QuestionComponent extends PagedListingComponentBase<QuestionOutputD
 
   
   viewAnswers(questions: QuestionOutputDto):void{
+    console.log(questions.id);
     this._router.navigate(['app/answer'],{queryParams:{questionId: questions.id}});
     // new AnswerComponent();(questions.id);
   }
@@ -146,7 +152,7 @@ export class QuestionComponent extends PagedListingComponentBase<QuestionOutputD
     let createOrEditQuestion: BsModalRef;
     if (!id) {
       createOrEditQuestion = this._modalService.show(
-        EditQuestionComponent,//CreateQuestionComponent,
+        CreateQuestionComponent,
         {
           class: 'modal-lg',
         }

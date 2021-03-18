@@ -16,7 +16,7 @@ import {
   AnswerOutputDtoPagedResultDto,
   AnswerServiceProxy
 } from '@shared/service-proxies/service-proxies';
-
+import { CreateAnswerComponent } from './create-answer/create-answer.component';
 
 class PagedAnswerRequestDto extends PagedRequestDto {
   keyword: string;
@@ -52,7 +52,7 @@ export class AnswerComponent extends PagedListingComponentBase<AnswerOutputDto> 
   }
 
   ngOnInit(): void {
-    const id=this._activatedRoute.snapshot.queryParams['questionId'];
+    let id=this._activatedRoute.snapshot.queryParams['questionId'];
     this.questId=id;
     console.log(id);
     this.getQuestionbyId(id);
@@ -91,9 +91,10 @@ export class AnswerComponent extends PagedListingComponentBase<AnswerOutputDto> 
    }
 
   
-  // editQuestio(questions: QuestionListDto): void {
-  //   // this.showCreateOrEditQuestion(questions.id);
-  // }
+  createAnswer(questId): void {
+    console.log(questId);
+    this.showCreateAnswer(questId);
+  }
 
   
   clearFilters(): void {
@@ -126,7 +127,27 @@ export class AnswerComponent extends PagedListingComponentBase<AnswerOutputDto> 
         this.showPaging(result, pageNumber);
       });
   }
-}
+
+  private showCreateAnswer(id: number): void {
+    let createOrEditAnswer: BsModalRef;
+      createOrEditAnswer = this._modalService.show(
+        CreateAnswerComponent,
+        {
+          class: 'modal-lg',
+          initialState: {
+            qid: id,
+          },
+        }
+      );
+      createOrEditAnswer.content.onSave.subscribe(() => {
+        this.refresh();
+        // this.getAllQuestion();
+      });
+    }
+    
+
+  }
+
 function finishedCallback() {
   throw new Error('Function not implemented.');
 }

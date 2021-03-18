@@ -3204,6 +3204,7 @@ export class AnswerOutputDto implements IAnswerOutputDto {
     answerText: string | undefined;
     creationTime: moment.Moment;
     postedBy: string | undefined;
+    postedById: number;
     questId: number;
 
     constructor(data?: IAnswerOutputDto) {
@@ -3221,6 +3222,7 @@ export class AnswerOutputDto implements IAnswerOutputDto {
             this.answerText = _data["answerText"];
             this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
             this.postedBy = _data["postedBy"];
+            this.postedById = _data["postedById"];
             this.questId = _data["questId"];
         }
     }
@@ -3238,6 +3240,7 @@ export class AnswerOutputDto implements IAnswerOutputDto {
         data["answerText"] = this.answerText;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["postedBy"] = this.postedBy;
+        data["postedById"] = this.postedById;
         data["questId"] = this.questId;
         return data; 
     }
@@ -3255,6 +3258,7 @@ export interface IAnswerOutputDto {
     answerText: string | undefined;
     creationTime: moment.Moment;
     postedBy: string | undefined;
+    postedById: number;
     questId: number;
 }
 
@@ -3530,6 +3534,7 @@ export class QuestionOutputDto implements IQuestionOutputDto {
     creationTime: moment.Moment;
     topicName: string | undefined;
     userName: string | undefined;
+    userId: number;
     id: number;
 
     constructor(data?: IQuestionOutputDto) {
@@ -3547,6 +3552,7 @@ export class QuestionOutputDto implements IQuestionOutputDto {
             this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
             this.topicName = _data["topicName"];
             this.userName = _data["userName"];
+            this.userId = _data["userId"];
             this.id = _data["id"];
         }
     }
@@ -3564,6 +3570,7 @@ export class QuestionOutputDto implements IQuestionOutputDto {
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["topicName"] = this.topicName;
         data["userName"] = this.userName;
+        data["userId"] = this.userId;
         data["id"] = this.id;
         return data; 
     }
@@ -3581,6 +3588,7 @@ export interface IQuestionOutputDto {
     creationTime: moment.Moment;
     topicName: string | undefined;
     userName: string | undefined;
+    userId: number;
     id: number;
 }
 

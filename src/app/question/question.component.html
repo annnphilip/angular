@@ -169,7 +169,7 @@
                     {{ "View Answer" | localize }}
                   </button>
                 </td>
-                <td>
+                <td  *ngIf="userId==quest.userId">
                   <button
                     type="button"
                     class="btn btn-sm bg-secondary"
